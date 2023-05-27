@@ -1,0 +1,4 @@
+my idea is to use the homebrew package to boostrap it
+
+the idea is basically to use brew generate a package with brew-pkg
+and use the macos patchelf equivalent to make it portable
