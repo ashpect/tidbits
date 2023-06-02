@@ -49,6 +49,7 @@ build_meta() {
 	# Configure
 	cmake -Wno-dev \
 		-DCMAKE_BUILD_TYPE=Release \
+		-DOPTION_BUILD_PLUGINS_BACKTRACE=off \
 		-DOPTION_BUILD_SECURITY=OFF \
 		-DOPTION_FORK_SAFE=OFF \
 		-DOPTION_BUILD_SCRIPTS=OFF \
