@@ -2,3 +2,41 @@ my idea is to use the homebrew package to boostrap it
 
 the idea is basically to use brew generate a package with brew-pkg
 and use the macos patchelf equivalent to make it portable
+
+you can disable the backtrace
+add this in the cake command:
+-DOPTION_BUILD_PLUGINS_BACKTRACE=off
+
+dependencies don't need to be installed in metacall folder
+we can install them globally
+system wide I mean
+and then use brew-pkg
+and uncompress the zip into the folder we want
+and then apply the image_tool thing
+(patchelf, for modifying the paths of libraries and make them relative)
+------------------
+so the main idea is to create a self contained and portable installer of metacall with all its dependencies
+this means a zip that I can uncompress anywhere and it works
+for this, a hack we can use to make it simpler is to reuse the homebrew installer
+there's a brew-pkg program that can take metacall and all depends and generate a pkg
+I was thinking to use this so we can obtain our zip
+the pkg is similar to a zip at the end
+the thing is this pkg will install the things in absolute paths
+(the brew-pkg is an option but I'm sure there will be other's, I'm telling this to you to understand the global overview)
+------------------
+but.. we can take the pkg, install it into a different folder (not /)
+and then patchelf all the libraries, so they depend on a relative path one from the other
+and then zip this
+instead of patchelf you can also use this tool offered by macos: install_name_tool
+maybe the brew-pkg is an unnecessary extra step
+in this exact post, the guy created a script that recursively finds dependencies and copies them to your folder, 
+changing the relative path of them through install_name_tool: https://stackoverflow.com/a/47897552
+
+so there's no need to brew-pkg
+and the effect is the same
+moving all dependencies into a folder
+I thought about brew-pkg in order to copy third party shit (just in case) 
+and also for distributing it in pkg form, a part of brew, portable zip (and its script installer)
+
+but if we do properly the script then it should work too
+
